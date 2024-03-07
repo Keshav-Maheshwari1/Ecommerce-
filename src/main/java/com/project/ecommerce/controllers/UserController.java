@@ -46,6 +46,7 @@ public class UserController {
     // Updating a password
     @PostMapping("/reset")
     public ResponseEntity<String> updatePassword(@RequestBody LoggedInUser user){
+        System.out.println("Updating password");
         return userService.updatePassword(user.getEmail(), user.getPassword());
     }
 

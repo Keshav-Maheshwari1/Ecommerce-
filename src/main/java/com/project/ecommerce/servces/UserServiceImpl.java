@@ -2,6 +2,7 @@ package com.project.ecommerce.servces;
 
 import com.project.ecommerce.entities.User;
 import com.project.ecommerce.repo.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -66,13 +67,15 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>("Email Not Found", HttpStatus.NOT_FOUND);
     }
     @Override
+    @Transactional
     public ResponseEntity<String> updatePassword(String email,String password) {
         if(!StringUtils.hasLength(email) || !StringUtils.hasLength(password)){
             return new ResponseEntity<>("Required Fields Are Missing",HttpStatus.BAD_REQUEST);
         }
         if(emailExists(email)){
-            userRepository.updatePassword(email, password);
-            return new ResponseEntity<>("Email updated Successfully",HttpStatus.OK);
+            int updatedRows = userRepository.updatePassword(email, password);
+            if(updatedRows>0)
+                return new ResponseEntity<>("Email updated Successfully",HttpStatus.OK);
         }
 
         return new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR) ;
