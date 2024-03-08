@@ -37,10 +37,10 @@ public class PaymentController {
         }
     }
     @PostMapping("/razorpay-webhook")
-    public ResponseEntity<String> handleRazorpayWebhook(@RequestBody String webhookPayload,
-                                                        @RequestHeader("x-razorpay-signature") String signature) {
+    public ResponseEntity<String> handleRazorpayWebhook(@RequestBody(required = false) String webhookPayload,
+                                                        @RequestHeader(value = "x-razorpay-signature",required = false) String signature) {
         try {
-
+            System.out.println("Called By razorpay");
             return new ResponseEntity<>("Payment Successfully Accepted", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
