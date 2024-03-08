@@ -11,6 +11,6 @@ public interface UserService {
     List<User> getAllUsers();
     User getUser(String email);
     ResponseEntity<String> updatePassword(String email,String password);
-    boolean logout(String email);
+    ResponseEntity<String> logout(String email);
     ResponseEntity<String> signIn(String email, String password);
 }

@@ -14,5 +14,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
     int updatePassword(@Param("email") String email, @Param("password") String password);
 
 
-    boolean deleteByEmail(String email);
+    int deleteByEmail(String email);
 }

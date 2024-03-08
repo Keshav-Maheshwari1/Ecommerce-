@@ -51,12 +51,9 @@ public class UserController {
     }
 
     // deleting a userByEmail means logOut
-    @DeleteMapping("/logout")
-    public ResponseEntity<String> deleteUserByEmail(@RequestParam String email){
-        if(userService.logout(email)){
-            return new ResponseEntity<>("Logged Out successfully",HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Could not found",HttpStatus.NOT_FOUND);
+    @DeleteMapping("/logout/{email}")
+    public ResponseEntity<String> deleteUserByEmail(@PathVariable String email){
+        return userService.logout(email);
     }
 
 

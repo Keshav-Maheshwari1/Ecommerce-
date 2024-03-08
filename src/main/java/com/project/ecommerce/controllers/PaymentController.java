@@ -36,16 +36,16 @@ public class PaymentController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR );
         }
     }
-//    @PostMapping("/razorpay-webhook")
-//    public ResponseEntity<String> handleRazorpayWebhook(@RequestBody String webhookPayload,
-//                                                        @RequestHeader("x-razorpay-signature") String signature) {
-//        try {
-//            // Your existing logic here
-//            return new ResponseEntity<>(null, HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PostMapping("/razorpay-webhook")
+    public ResponseEntity<String> handleRazorpayWebhook(@RequestBody String webhookPayload,
+                                                        @RequestHeader("x-razorpay-signature") String signature) {
+        try {
+
+            return new ResponseEntity<>("Payment Successfully Accepted", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

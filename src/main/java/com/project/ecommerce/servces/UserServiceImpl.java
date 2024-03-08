@@ -81,7 +81,16 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR) ;
     }
     @Override
-    public boolean logout(String email) {
-        return userRepository.deleteByEmail(email);
+    public ResponseEntity<String> logout(String email) {
+        if(!StringUtils.hasLength(email)){
+            return new ResponseEntity<>("Required Fields Are Missing",HttpStatus.BAD_REQUEST);
+        }
+        if(emailExists(email)) {
+            int deletedRows = userRepository.deleteByEmail(email);
+            if(deletedRows>0){
+                return new ResponseEntity<>("Email deleted Successfully",HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
