@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR) ;
     }
     @Override
+    @Transactional
     public ResponseEntity<String> logout(String email) {
         if(!StringUtils.hasLength(email)){
             return new ResponseEntity<>("Required Fields Are Missing",HttpStatus.BAD_REQUEST);

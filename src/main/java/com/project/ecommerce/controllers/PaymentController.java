@@ -4,6 +4,8 @@ import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ public class PaymentController {
     @Value("${rzp_key_secret}")
     private String secretKey;
 
-
+    Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
     // Generating a unique order id for the given order
     @GetMapping("/payment/{amount}")
@@ -40,10 +42,10 @@ public class PaymentController {
     public ResponseEntity<String> handleRazorpayWebhook(@RequestBody(required = false) String webhookPayload,
                                                         @RequestHeader(value = "x-razorpay-signature",required = false) String signature) {
         try {
-            System.out.println("Called By razorpay");
+            logger.info("Hook Called");
             return new ResponseEntity<>("Payment Successfully Accepted", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
