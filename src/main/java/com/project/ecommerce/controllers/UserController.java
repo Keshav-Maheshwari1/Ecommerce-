@@ -14,9 +14,12 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
 
     // Generating All registered users
     @GetMapping("/all")
@@ -33,6 +36,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
     //Sign In controller
     @PostMapping("/signIn")
     public ResponseEntity<String> signIn(@RequestBody LoggedInUser user){

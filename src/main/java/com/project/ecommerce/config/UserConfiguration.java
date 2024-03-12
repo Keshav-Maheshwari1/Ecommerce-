@@ -39,6 +39,11 @@ public class UserConfiguration implements WebMvcConfigurer {
                         .allowedMethods("GET", "POST")
                         .allowedHeaders("Origin", "Content-Type", "Accept", "Authorization")
                         .allowCredentials(true);
+                registry.addMapping("/api/users/ordre")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("GET", "POST")
+                        .allowedHeaders("Origin", "Content-Type", "Accept", "Authorization")
+                        .allowCredentials(true);
 
             }
         };
